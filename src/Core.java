@@ -23,7 +23,7 @@ public class Core extends JComponent {
                 ms++;
                 System.out.println(count);
                 if(ms%100 == 10){
-                    addBall(400,300,20);
+                    addBall(400,300, 5+Math.random()*40);
                    count++;
                 }
                 Solver.update(0.1);
