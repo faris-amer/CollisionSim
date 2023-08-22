@@ -1,3 +1,6 @@
+
+//A vector class I created with operation functionality
+
 public class Vec {
     double x;
     double y;

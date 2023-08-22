@@ -21,12 +21,17 @@ public class Core extends JComponent {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ms++;
-                System.out.println(count);
-                if(ms%100 == 10){
-                    addBall(400,300, 5+Math.random()*40);
-                   count++;
+                if(ms%7 == 0){
+
+                    //addBall(500,250, 3+Math.random()*10);
+                    addRandomBalls(ms);
+
+                    count++;
                 }
-                Solver.update(0.1);
+                int substeps = 8;
+                for (int i = 1; i <= substeps; i++) {
+                    Solver.update(0.01/substeps);
+                }
                 repaint();
 
             }
@@ -42,20 +47,30 @@ public class Core extends JComponent {
         g2d.fillOval((w/2)-300,(h/2)-300,600,600);
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.drawString(Integer.toString(ms),5,15);
-        g2d.setColor(Color.RED);
         circleList.clear();
         for(Ball ball:Solver.ballList) {
-            circleList.add(new Ellipse2D.Double(ball.getX(),ball.getY(),ball.radius*2,ball.radius*2));
-        }
-        for(Ellipse2D.Double circle:circleList){
+            g2d.setColor(ball.color);
+            Ellipse2D circle = (new Ellipse2D.Double(ball.getX(),ball.getY(),ball.radius*2,ball.radius*2));
             g2d.fill(circle);
         }
+        //for(Ellipse2D.Double circle:circleList){}
         g2d.dispose();
 
         Toolkit.getDefaultToolkit().sync();
     }
     public void addBall(double x, double y, double radius){
         Solver.ballList.add(new Ball(new Vec(x,y),radius));
+    }
+    public void addRandomBalls(double time){
+
+        time = Math.sin(time/100);
+        System.out.println(time);
+
+
+        double radius = 5+Math.random()*10;
+        double x = w/2.0-radius;
+        double y = h/4.0;
+        Solver.ballList.add(new Ball(new Vec(x,y),radius,new Color((int) (200-Math.abs(time)*150), 50, (int) (50+Math.abs(time)*150)),new Vec(time,Math.abs(time))));
     }
 }
 

@@ -7,8 +7,15 @@ public class Solver {
 
     public static void update(double dt){
         for(Ball ball:ballList) {
+            for (Ball targetBall:ballList){
+                if(ball != targetBall) {
+                    ball.doObjectCollision(targetBall);
+                }
+            }
+            ball.updatePos(dt);
 
-            ball.updatePos(0.05);
         }
+        //super inefficient O^2 algo but works here sooooo
+
     }
 }

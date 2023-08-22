@@ -8,7 +8,7 @@ public class Interface extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
-        setTitle("Falling Ball");
+        setTitle("Falling Balls!");
         add(new Core());
         setVisible(true);
     }
